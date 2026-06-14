@@ -314,21 +314,6 @@ File log tersimpan di:
 
 ---
 
-## 📦 Deliverable Checklist
-
-- [x] `etl_pipeline/etl_pipeline_flight_FINAL.ipynb`
-- [x] `elt_pipeline/elt_pipeline_flight_FINAL.ipynb`
-- [x] `raw/` — data mentah hasil extract
-- [x] `datalake/` — data lake ELT
-- [x] `cleaned/` — data bersih ETL
-- [x] `warehouse/` — SQLite backup
-- [x] `dashboard/` — konfigurasi dashboard
-- [x] `architecture_diagram.pdf`
-- [x] `Dokumentasi_Database_Warehouse.docx`
-- [x] `README.md`
-
----
-
 ## 👥 Tim
 ||
 | Nama | NIM |
