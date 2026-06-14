@@ -307,6 +307,13 @@ File log tersimpan di:
 <img width="902" height="677" alt="Screenshot 2026-06-14 205208" src="https://github.com/user-attachments/assets/ac4d1837-c143-47c4-a05f-33332a00dc78" />
 |https://datastudio.google.com/reporting/1947150e-21ea-4d2f-8deb-be0fb10b5814|
 
+
+---
+## Kesimpulan
+
+Berdasarkan hasil implementasi dan evaluasi kedua pipeline, dapat disimpulkan bahwa kedua pendekatan menghasilkan kualitas data yang identik — sama-sama lulus 5 dari 6 dimensi validasi dengan referential integrity 99,9%. Namun dari sisi hasil analitik, ETL menghasilkan output yang lebih terstruktur dan konsisten karena data telah dibersihkan, dinormalisasi, dan diorganisasi dalam star schema sebelum masuk ke warehouse, sehingga nilai-nilai seperti on-time rate (66,04%), rata-rata delay (10,09 menit), dan distribusi status delay yang dihasilkan lebih dapat dipercaya. Sementara ELT menghasilkan nilai yang sedikit berbeda pada jumlah rekaman akhir (148.843 vs 149.801) akibat perbedaan strategi deduplikasi, meskipun selisihnya tidak signifikan (0,08%). Dengan demikian, dari perspektif kualitas dan keandalan hasil, ETL lebih unggul karena transformasi yang ketat sebelum pemuatan data menjamin konsistensi output analitik yang lebih baik.
+
+
 ---
 ## 🐛 Troubleshooting
 
