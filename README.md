@@ -47,8 +47,8 @@ bigdata_final_project/
 
 | Sumber | File | Ukuran | Deskripsi |
 |--------|------|--------|-----------|
-| Source 1 | `flights_sample_3m.csv` | ~585 MB | Data keterlambatan penerbangan AS (3 juta baris, diambil 150.000) |
-| Source 2 | `airports.csv` | ~670 KB | Data bandara global (IATA, koordinat, timezone) |
+| https://www.kaggle.com/datasets/patrickzel/flight-delay-and-cancellation-dataset-2019-2023 | `flights_sample_3m.csv` | ~585 MB | Data keterlambatan penerbangan AS (3 juta baris, diambil 150.000) |
+| https://www.kaggle.com/datasets/samvelkoch/global-airports-iata-icao-timezone-geo | `airports.csv` | ~670 KB | Data bandara global (IATA, koordinat, timezone) |
 
 ### Spesifikasi Dataset Setelah ETL
 
