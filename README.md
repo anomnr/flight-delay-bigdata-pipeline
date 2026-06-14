@@ -300,7 +300,14 @@ File log tersimpan di:
 | 6 | **Distribusi Data** | Mean dep_delay harus dalam rentang (-10, 60) menit, std > 5 |
 
 ---
+## Dashboard
+<img width="903" height="678" alt="Screenshot 2026-06-14 205314" src="https://github.com/user-attachments/assets/d2542bf8-25b6-45bc-9561-482156437f4b" />
+<img width="903" height="682" alt="Screenshot 2026-06-14 205259" src="https://github.com/user-attachments/assets/5da8a2ce-6726-4655-884f-fcb63229bc56" />
+<img width="905" height="680" alt="Screenshot 2026-06-14 205226" src="https://github.com/user-attachments/assets/deeaf819-51c1-4736-894a-32feb0bbe603" />
+<img width="902" height="677" alt="Screenshot 2026-06-14 205208" src="https://github.com/user-attachments/assets/ac4d1837-c143-47c4-a05f-33332a00dc78" />
+|https://datastudio.google.com/reporting/1947150e-21ea-4d2f-8deb-be0fb10b5814|
 
+---
 ## 🐛 Troubleshooting
 
 | Masalah | Solusi |
