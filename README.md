@@ -44,6 +44,11 @@ bigdata_final_project/
 ---
 
 ## 🗂️ Dataset
+<img width="1421" height="734" alt="image" src="https://github.com/user-attachments/assets/4ab2c5f8-7fcf-4d1c-911c-2fecbcf84392" />
+
+<img width="1371" height="723" alt="image" src="https://github.com/user-attachments/assets/c0bb8954-6a56-4057-93e4-31bbae72ce39" />
+
+
 
 | Sumber | File | Ukuran | Deskripsi |
 |--------|------|--------|-----------|
@@ -329,7 +334,7 @@ File log tersimpan di:
 | Nama | NIM |
 |------|-----|
 | _Anom Nur Maulid_ | _1103223193_ |
-| _Muhammad Rayhan Ananta Kabalmay_ | _(NIM)_ |
+| _Muhammad Rayhan Ananta Kabalmay_ | _1103223077_ |
 
 
 ---
