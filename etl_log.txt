@@ -1,0 +1,87 @@
+=== PIPELINE BIG DATA ETL & ELT LOG - UAS GENAP 25/26 ===
+Eksekusi dimulai pada: 2026-06-14 08:39:28
+============================================================
+[2026-06-14 08:39:31] [ETL] [EXTRACT_SOURCE1] [SUCCESS] - Sukses mengekstrak data penerbangan.
+   > Nama Sumber Data: flights_sample_3m.csv
+   > Jumlah Baris Extracted: 150,000
+   > Jumlah Kolom Extracted: 32
+   > Ukuran File Asli: 585.69 MB
+   > Waktu Eksekusi: 3.72 detik
+   > Path Penyimpanan Raw: /content/drive/MyDrive/TUBES BIG DATA/raw/raw_flights.csv
+[2026-06-14 08:39:32] [ETL] [EXTRACT_SOURCE2] [SUCCESS] - Sukses mengekstrak data bandara.
+   > Nama Sumber Data: airports.csv
+   > Jumlah Baris Extracted: 6,393
+   > Jumlah Kolom Extracted: 13
+   > Ukuran File Asli: 0.65 MB
+   > Waktu Eksekusi: 0.74 detik
+   > Path Penyimpanan Raw: /content/drive/MyDrive/TUBES BIG DATA/raw/raw_airports.csv
+[2026-06-14 08:39:33] [ETL] [TRANSFORM_CLEANING] [SUCCESS] - Data cleaning selesai.
+   > Flights Shape Sebelum: (149987, 32)
+   > Flights Shape Sesudah: (149978, 32)
+   > Duplikat Dihapus: 13
+   > Airports Shape Sesudah: (6372, 13)
+   > Outlier Method: Hard Cap dep_delay [-120, 1440]
+   > Waktu Eksekusi: 0.67 detik
+[2026-06-14 08:39:33] [ETL] [TRANSFORM_STANDARDIZE] [SUCCESS] - Standarisasi dan normalisasi selesai.
+   > Kolom Dinormalisasi: ['dep_delay_norm', 'arr_delay_norm']
+   > Kolom Di-encode: cancelled_enc
+   > Scaler: MinMaxScaler (fit hanya non-cancelled)
+   > Waktu Eksekusi: 0.02 detik
+[2026-06-14 08:39:34] [ETL] [TRANSFORM_FEATUREENGINEERING] [SUCCESS] - Feature engineering & enrichment selesai.
+   > Fitur Baru: flight_year, flight_month, day_of_week, delay_status, is_weekend
+   > Shape Merged: (149978, 50)
+   > Merge Sumber: flights JOIN airports (origin) JOIN airports (dest)
+   > Waktu Eksekusi: 1.57 detik
+[2026-06-14 08:39:43] [ETL] [TRANSFORM_VALIDATION] [SUCCESS] - Validasi 6 aturan kualitas data selesai.
+   > Final Shape: (149978, 50)
+   > Uniqueness Check: PASS ✅
+   > Null Check Kritis: PASS ✅
+   > Range Check Delay: PASS ✅
+   > Datatype Consistency: PASS ✅
+   > Referential Integrity: WARN ⚠️ (177 origin tidak match | match rate: 99.9%)
+   > Distribusi Data: PASS ✅ (mean=10.09 mnt, std=48.54)
+   > Path Cleaned: /content/drive/MyDrive/TUBES BIG DATA/cleaned/cleaned_flights_merged.csv
+   > Waktu Eksekusi: 0.07 detik
+[2026-06-14 08:39:44] [ETL] [LOAD_STARSCHEMA_BUILD] [SUCCESS] - Star Schema berhasil dibuat.
+   > fact_flights: 149,801 baris
+   > dim_airline: 18 baris
+   > dim_airport: 6,372 baris
+   > dim_date: 1,704 baris
+   > Waktu Eksekusi: 0.79 detik
+[2026-06-14 08:39:46] [ETL] [SQL_ANALYTICS] [SUCCESS] - 8 query analitik berhasil dijalankan.
+   > Query Dijalankan: 8 query (avg delay, tren, bandara, weekend, distribusi, rute, pembatalan, jarak)
+   > SQLite Path: /content/drive/MyDrive/TUBES BIG DATA/warehouse/flight_warehouse.db
+[2026-06-14 08:40:29] [ETL] [LOAD_TABLE_ETL_TRANSFORMED] [SUCCESS] - Tabel etl_transformed dimuat ke BigQuery.
+   > Target Table Warehouse: etl_flight_analytics.etl_transformed
+   > Jumlah Baris Terunggah: 149,978
+   > Jumlah Kolom: 50
+   > Waktu Pengiriman (Load Time): 22.57 detik
+[2026-06-14 08:40:35] [ETL] [LOAD_TABLE_FACT_FLIGHTS] [SUCCESS] - Tabel fact_flights dimuat ke BigQuery.
+   > Target Table Warehouse: etl_flight_analytics.fact_flights
+   > Jumlah Baris Terunggah: 149,801
+   > Jumlah Kolom: 20
+   > Waktu Pengiriman (Load Time): 5.6 detik
+[2026-06-14 08:40:38] [ETL] [LOAD_TABLE_DIM_AIRLINE] [SUCCESS] - Tabel dim_airline dimuat ke BigQuery.
+   > Target Table Warehouse: etl_flight_analytics.dim_airline
+   > Jumlah Baris Terunggah: 18
+   > Jumlah Kolom: 2
+   > Waktu Pengiriman (Load Time): 3.17 detik
+[2026-06-14 08:40:42] [ETL] [LOAD_TABLE_DIM_AIRPORT] [SUCCESS] - Tabel dim_airport dimuat ke BigQuery.
+   > Target Table Warehouse: etl_flight_analytics.dim_airport
+   > Jumlah Baris Terunggah: 6,372
+   > Jumlah Kolom: 7
+   > Waktu Pengiriman (Load Time): 4.07 detik
+[2026-06-14 08:40:45] [ETL] [LOAD_TABLE_DIM_DATE] [SUCCESS] - Tabel dim_date dimuat ke BigQuery.
+   > Target Table Warehouse: etl_flight_analytics.dim_date
+   > Jumlah Baris Terunggah: 1,704
+   > Jumlah Kolom: 8
+   > Waktu Pengiriman (Load Time): 3.01 detik
+[2026-06-14 08:40:45] [ETL] [LOAD_SUMMARY] [SUCCESS] - Semua tabel selesai diproses.
+   > Tabel Berhasil: ['etl_transformed', 'fact_flights', 'dim_airline', 'dim_airport', 'dim_date']
+   > Tabel Gagal: tidak ada
+   > Total Baris: 307,873
+   > Dataset BigQuery: tubes-bigdata-498212.etl_flight_analytics
+
+============================================================
+Pipeline selesai pada: 2026-06-14 08:40:45
+=== END OF ETL LOG ===

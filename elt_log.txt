@@ -1,0 +1,73 @@
+=== PIPELINE BIG DATA ELT LOG - UAS GENAP 25/26 ===
+Eksekusi dimulai pada: 2026-06-14 08:42:58
+============================================================
+[2026-06-14 08:43:15] [ELT] [EXTRACT_SOURCE1] [SUCCESS] - Sukses mengekstrak data penerbangan ke datalake.
+   > Nama Sumber Data: flights_sample_3m.csv
+   > Jumlah Baris Extracted: 150,000
+   > Jumlah Kolom Extracted: 32
+   > Ukuran File Asli: 585.69 MB
+   > Waktu Eksekusi: 3.06 detik
+   > Path Datalake: /content/drive/MyDrive/TUBES BIG DATA/datalake/lake_flights.csv
+   > Catatan: Data mentah tanpa transformasi
+[2026-06-14 08:43:16] [ELT] [EXTRACT_SOURCE2] [SUCCESS] - Sukses mengekstrak data bandara ke datalake.
+   > Nama Sumber Data: airports.csv
+   > Jumlah Baris Extracted: 6,393
+   > Jumlah Kolom Extracted: 13
+   > Ukuran File Asli: 0.65 MB
+   > Waktu Eksekusi: 1.07 detik
+   > Path Datalake: /content/drive/MyDrive/TUBES BIG DATA/datalake/lake_airports.csv
+   > Catatan: Data mentah tanpa transformasi
+[2026-06-14 08:43:17] [ELT] [OBSERVASI_RAWDATA] [SUCCESS] - Observasi data mentah selesai.
+   > Flights Shape: (150000, 32)
+   > Airports Shape: (6393, 13)
+   > Flights Duplikat: 0
+   > Airports Missing: 1,664
+   > Catatan: Data belum ditransformasi, siap LOAD ke BigQuery
+[2026-06-14 08:43:31] [ELT] [LOAD_RAW_BIGQUERY] [SUCCESS] - Data mentah berhasil dimuat ke BigQuery sebagai data lake.
+   > raw_flights Baris: 150,000
+   > raw_flights Load Time: 10.95 detik
+   > raw_airports Baris: 6,393
+   > raw_airports Load Time: 3.4 detik
+   > Target Dataset: tubes-bigdata-498212.elt_flight_analytics
+   > Total Waktu Load: 14.55 detik
+   > Catatan: ELT Load: data masuk warehouse tanpa transformasi
+[2026-06-14 08:43:38] [ELT] [TRANSFORM_SQL_CLEANING] [SUCCESS] - Cleaning via BigQuery SQL selesai.
+   > Metode: SQL CREATE OR REPLACE TABLE di BigQuery
+   > Tabel Dibuat: elt_cleaned_flights, elt_cleaned_airports
+   > FIX Diterapkan: NULL cancelled, hard cap [-120,1440], dedup ROW_NUMBER
+   > Waktu Eksekusi SQL: 6.36 detik
+[2026-06-14 08:43:42] [ELT] [TRANSFORM_SQL_MERGEFE] [SUCCESS] - Merge & Feature Engineering via BigQuery SQL selesai.
+   > Tabel Dibuat: elt_transformed
+   > Baris Hasil: 148,843
+   > Kolom Hasil: 26
+   > Fitur Baru: flight_year, flight_month, day_of_week, delay_status, is_weekend, quarter
+   > JOIN Strategy: LEFT JOIN (origin & dest) ke elt_cleaned_airports
+   > NULL Origin Name: 176 baris
+   > FIX Diterapkan: LEFT JOIN, delay_status cancelled label, fitur quarter
+   > Waktu Eksekusi SQL: 4.22 detik
+[2026-06-14 08:43:47] [ELT] [TRANSFORM_SQL_METRICS] [SUCCESS] - Agregasi metrik via BigQuery SQL selesai.
+   > Tabel Dibuat: elt_metrics
+   > Baris Hasil: 1,492
+   > Metrik Dihitung: avg_dep_delay, avg_arr_delay, avg_distance, total_cancelled, avg_air_time, on_time_rate_pct
+   > FIX Diterapkan: AVG exclude cancelled, on_time_rate benar
+   > Waktu Eksekusi SQL: 4.83 detik
+[2026-06-14 08:43:54] [ELT] [VALIDASI_KUALITASDATA] [SUCCESS] - Validasi 6 aturan kualitas data via BigQuery SQL selesai.
+   > Uniqueness Check: PASS ✅
+   > Null Check Kritis: PASS ✅
+   > Range Check Delay: PASS ✅
+   > Datatype Date: PASS ✅ (DATE)
+   > Referential Integrity: WARN ⚠️ (176 origin tidak match | match rate: 99.9%)
+   > Distribusi Data: PASS ✅ (mean=10.09 mnt, std=48.61)
+   > On-Time Rate: 66.04%
+   > Total Baris: 148,843
+   > Waktu Validasi SQL: 6.94 detik
+[2026-06-14 08:43:55] [ELT] [PIPELINE_SUMMARY] [SUCCESS] - Seluruh pipeline ELT selesai dijalankan.
+   > Total Tabel BigQuery: 6
+   > Total Baris: 461,943
+   > Dataset: tubes-bigdata-498212.elt_flight_analytics
+   > Datalake: /content/drive/MyDrive/TUBES BIG DATA/datalake
+   > Strategi Transform: SQL di BigQuery (bukan Python pra-load)
+
+============================================================
+Pipeline selesai pada: 2026-06-14 08:43:55
+=== END OF ELT LOG ===
